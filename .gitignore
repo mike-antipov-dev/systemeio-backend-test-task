@@ -1,3 +1,16 @@
 /.idea
 .env.*.local
 compose.override.yaml
+/*.DS_Store
+/.php-cs-fixer.cache
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/.htaccess
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+.phpunit.result.cache
+/phpunit.xml*
+/phpunit.xml

@@ -1,22 +1,149 @@
-### Calculate Price
+# РАСЧЕТ ЦЕНЫ
+### iPhone из Греции со скидкой 6%
 POST http://127.0.0.1:8337/calculate-price
 Accept: application/json
 Content-Type: application/json
 
 {
-  "product": 1,
-  "taxNumber": "DE123456789",
-  "couponCode": "D15"
+  "product": 5,
+  "taxNumber": "GR123456789",
+  "couponCode": "P6"
 }
 
-### Execute Purchase
+### iPhone из Италии со фиксированной скидкой 15
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 5,
+  "taxNumber": "IT12345678901",
+  "couponCode": "F15"
+}
+
+### Наушники из Германии со скидкой 100%
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 6,
+  "taxNumber": "DE123456789",
+  "couponCode": "P100"
+}
+
+### Неправильный налоговый номер
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 6,
+  "taxNumber": "123456789123",
+  "couponCode": "P100"
+}
+
+### Пустой налоговый номер
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 6,
+  "taxNumber": "",
+  "couponCode": "P100"
+}
+
+### Неправильный купон
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 6,
+  "taxNumber": "DE123456789",
+  "couponCode": "P100132"
+}
+
+### Пустой номер товара
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": "",
+  "taxNumber": "DE123456789",
+  "couponCode": "P100132"
+}
+
+### Успешная покупка через PayPal
 POST http://127.0.0.1:8337/purchase
 Accept: application/json
 Content-Type: application/json
 
 {
-  "product": 1,
+  "product": 5,
   "taxNumber": "IT12345678900",
-  "couponCode": "D15",
+  "couponCode": "P6",
+  "paymentProcessor": "paypal"
+}
+
+### Успешная покупка через Stripe
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 5,
+  "taxNumber": "IT12345678900",
+  "couponCode": "P6",
+  "paymentProcessor": "stripe"
+}
+
+### Неправильно название платёжного сервиса
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 5,
+  "taxNumber": "IT12345678900",
+  "couponCode": "P6",
+  "paymentProcessor": "stripee"
+}
+
+### Пустое название платёжного сервиса
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 5,
+  "taxNumber": "IT12345678900",
+  "couponCode": "P6",
+  "paymentProcessor": ""
+}
+
+### Цена ниже 100 в Stripe
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 5,
+  "taxNumber": "IT12345678900",
+  "couponCode": "P100",
+  "paymentProcessor": "stripe"
+}
+
+### Слишком высокая цена в PayPal
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 8,
+  "taxNumber": "IT12345678900",
+  "couponCode": "",
   "paymentProcessor": "paypal"
 }
